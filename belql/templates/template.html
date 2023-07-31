@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block page %}{{title}}{% endblock %}
+{% block heading %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Relation</th>
+            <th>Object</th>
+        </tr>
+        <tr>
+            <td>
+                <input id="bel-subject-query" type="text" value='p(HGNC:"MAPT")'>
+            </td>
+            <td>
+                <select id="bel-relation-query" title="BEL-Relationship to be looked at">
+                    <option value="?">?</option>
+                {% for rel in additional_variables.bel_relation_class_list %}
+                    <option value="{{ rel.value }}">{{ rel.name }}</option>
+                {% endfor %}
+                </select>
+            </td>
+            <td>
+                <input id="bel-object-query" type="text" value="?">
+            </td>
+            <td style="padding-left: 10px">
+                <button class="btn btn-primary" type="button" onclick="query_bel()">Submit</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="result" class="row" style="display:block; padding:1%; overflow: auto; margin: auto"></div>
+
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

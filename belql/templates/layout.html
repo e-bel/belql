@@ -1,0 +1,52 @@
+{% from "macros.html" import nav_link with context %}
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='belquery.js') }}"></script>
+<script src="{{ url_for('static', filename='datatables.js') }}"></script>
+
+<html>
+  <head>
+    {{ success_msg }}
+    {% block head %}
+        <title>BEL Query Language</title>
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+      .container {
+        max-width: 700px;
+      }
+      h2 {color: red;}
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Home</a>
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div>
+      {% block heading %}
+          <div class="container">
+           <h1>BEL Query Language Tool</h1>
+          </div>
+      {% endblock %}
+      <br>
+      {% block content %}{% endblock %}
+      <div class="footer">
+        {% block footer %}
+{#          <a href="https://gitlab-sysprog.informatik.uni-bonn.de/bschultz"> Bruce's GitLab Profile</a>#}
+        {% endblock %}
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
