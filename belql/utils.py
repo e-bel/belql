@@ -17,7 +17,7 @@ class ApiClient:
             password: str = "guest",
             host: str = "https://graphstore.scai.fraunhofer.de",
             database: str = "pharmacome",
-            ssf: str = "bikmi_belish_edge"
+            ssf: str = "bikmi_belish_edge_anno"
     ):
         self.user = user
         self.__password = password
@@ -45,7 +45,14 @@ class ApiClient:
         self.ssf = ssf if ssf else self.ssf
         self.url_template = f"{self.host}/function/{self.database}/{self.ssf}/{{bq}}"
 
-    def query_belish(self, belish_query: str, limit: int | None = 10000, skip: int | None = 0):
+    def query_belish(
+            self,
+            belish_query: str,
+            limit: int | None = 10000,
+            skip: int | None = 0,
+            anno_key: str | None = None,
+            anno_val: str | None = None,
+    ):
         """Query the database with the given BQL query.
 
         Parameters
@@ -56,8 +63,12 @@ class ApiClient:
             Number of results to limit the output to. If None given, then returns all (may result in error).
         skip : int | None
             Number of results to skip. If None given, then skips none.
+        anno_key : int | None
+            Annotation key.
+        anno_val : int | None
+            Annotation value.
         """
-        args = "/".join([belish_query, str(limit), str(skip)])
+        args = "/".join([belish_query, str(limit), str(skip), anno_key, anno_val])
         bq_decoded = requote_uri(args)
         req = self.url_template.format(bq=bq_decoded)
         resp = requests.get(req, auth=(self.user, self.__password))
@@ -125,16 +136,16 @@ def _result_helper(object_names, row, unavailable_data='N/A') -> list:
     return resulting_row
 
 
-def get_bel_data(belish, database: str = 'pharmacome') -> str:
+def get_bel_data(belish, database: str = 'pharmacome', anno_key: str = "?", anno_val: str = "?") -> str:
     """Query the knowledge graph with a BELQL statement and return as JSON."""
     # Replace ? with %3F to paste in url
     belish = urllib.parse.quote(belish)
     api_client = ApiClient(database=database)
-    raw_bel_data = api_client.query_belish(belish)
+    raw_bel_data = api_client.query_belish(belish, anno_key=anno_key, anno_val=anno_val)
 
     belish_map = {
         'query': ['Subject', 'Relation', 'Object', 'PMID', 'Evidence', 'Publication', 'Journal', 'Last_Author',
-                  'Publication_Date'],
+                  'Publication_Date', "Annotation"],
         'table': [],
         'ref_list': [3],
         'ref_links': {

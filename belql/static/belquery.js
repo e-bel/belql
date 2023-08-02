@@ -23,7 +23,13 @@ function query_bel(){
 
         error: function(xhr,errmsg,err){
             alert("Error! Check your console for further information.");
-            console.log('Values:\n(q_sub): '+$("#bel-subject-query").val()+'\n(q_rel): '+$("#bel-relation-query").val()+'\n(q_obj): '+$("#bel-object-query").val());
+            console.log(
+                'Values:\n(q_sub): ' + $("#bel-subject-query").val() +
+                '\n(q_rel): ' + $("#bel-relation-query").val() +
+                '\n(q_obj): '+$("#bel-object-query").val() +
+                '\n(q_anno_key): '+$("#bel-anno-key-query").val() +
+                '\n(q_anno_val): '+$("#bel-anno-val-query").val()
+            );
             $('#loading-bel').hide();
         },
     });
@@ -113,9 +119,7 @@ function populateAnnoVals(){
         },
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             for (const annoVal of response.anno_vals){
-                console.log(annoVal);
                 let newOption = document.createElement('option');
                 newOption.setAttribute("value", annoVal);
                 newOption.innerHTML = annoVal;

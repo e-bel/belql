@@ -46,14 +46,14 @@
             width: 50%;
             float: left;
             padding: 10px;
-            max-width: 400px;
+            max-width: 350px;
         }
     </style>
     <div class="float-container">
         <div class="float-child">
             <h4>Annotation Key</h4>
             <select id="bel-anno-key-query" title="BEL Annotation Key" onchange="populateAnnoVals()">
-                <option value=""></option>
+                <option value="?"></option>
             {% for rel in anno_keys.anno_keys %}
                 <option value="{{ rel }}">{{ rel }}</option>
             {% endfor %}
@@ -63,7 +63,7 @@
         <div class="float-child">
             <h4>Annotation Value</h4>
             <select id="bel-anno-val-query" title="BEL Annotation Value">
-                <option value=""></option>
+                <option value="?"></option>
                 {% if anno_vals %}
                     {% for rel in anno_vals %}
                         <option value="{{ rel }}">{{ rel }}</option>

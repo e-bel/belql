@@ -15,9 +15,11 @@ logging.basicConfig(level=logging.DEBUG)
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        if "belq" in request.form:
+        if "q_sub" in request.form:
+            anno_key = request.form.get("q_anno_key")
+            anno_val = request.form.get("q_anno_val")
             bel_query = f'{request.form.get("q_sub").strip()} {request.form.get("q_rel").strip()} {request.form.get("q_obj").strip()}'
-            context = get_bel_data(bel_query)
+            context = get_bel_data(bel_query, anno_key=anno_key, anno_val=anno_val)
 
             return make_response(context)
 
