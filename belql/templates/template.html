@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<div class="container">
+    <div class="container">
     <table>
         <tr>
             <th>Subject</th>
@@ -33,10 +33,46 @@
                 <input id="bel-object-query" type="text" value="?">
             </td>
             <td style="padding-left: 10px">
-                <button class="btn btn-primary" type="button" onclick="query_bel()">Submit</button>
+                <button name="belq" class="btn btn-primary" type="button" onclick="query_bel()">Submit</button>
             </td>
         </tr>
     </table>
+    <style>
+        .float-container {
+            padding: 10px;
+        }
+
+        .float-child {
+            width: 50%;
+            float: left;
+            padding: 10px;
+            max-width: 400px;
+        }
+    </style>
+    <div class="float-container">
+        <div class="float-child">
+            <h4>Annotation Key</h4>
+            <select id="bel-anno-key-query" title="BEL Annotation Key" onchange="populateAnnoVals()">
+                <option value=""></option>
+            {% for rel in anno_keys.anno_keys %}
+                <option value="{{ rel }}">{{ rel }}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div class="float-child">
+            <h4>Annotation Value</h4>
+            <select id="bel-anno-val-query" title="BEL Annotation Value">
+                <option value=""></option>
+                {% if anno_vals %}
+                    {% for rel in anno_vals %}
+                        <option value="{{ rel }}">{{ rel }}</option>
+                    {% endfor %}
+            {% endif %}
+            </select>
+        </div>
+    </div>
+
 </div>
 
 <div id="result" class="row" style="display:block; padding:1%; overflow: auto; margin: auto"></div>

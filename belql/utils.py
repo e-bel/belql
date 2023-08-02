@@ -73,7 +73,7 @@ class ApiClient:
             self._data = msg
             return msg
 
-    def query_edges(self, superclass: str):
+    def query_edges(self, superclass: str | None = None):
         """Generic query to ODB."""
         resp = requests.get(self.url_template.format(bq=superclass), auth=(self.user, self.__password))
         results = resp.json(strict=False)["result"]
@@ -102,7 +102,7 @@ class ApiClient:
 def _result_helper(object_names, row, unavailable_data='N/A') -> list:
     """
     Method that gets a list of column names (GraphDB results) and returns properly ordered values. Also applies
-    an placeholder for values that where not retrieved.
+    a placeholder for values that where not retrieved.
 
     :return:
     """
@@ -179,6 +179,24 @@ def get_bel_edge_classes():
     return {'bel_relation_class_list': classes}
 
 
+def get_annotation_keys() -> dict:
+    """Gather all annotation keys."""
+    api_client = ApiClient(ssf="anno_keys", )
+    results = api_client.query_edges()
+    return {"anno_keys": sorted(results[0]["keys"])}
+
+
+def get_annotation_values(anno_key: str):
+    """Gather values for given annotation key."""
+    if anno_key == "?" or not anno_key:
+        return {"anno_vals": []}
+
+    else:
+        api_client = ApiClient(ssf="anno_vals", )
+        results = api_client.query_edges(anno_key)
+        return {"anno_vals": sorted(results[0]["vals"])}
+
+
 def _tree_strings(tree_dict=None, tree_list=None, sub=0):
     """
     Helper function to build a tree structure view for a given dict or list
@@ -226,3 +244,8 @@ def _tree_strings(tree_dict=None, tree_list=None, sub=0):
             })
 
     return tree_string_list
+
+
+if __name__ == "__main__":
+    a = get_annotation_keys()
+    b = 2
