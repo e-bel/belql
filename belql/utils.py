@@ -63,13 +63,13 @@ class ApiClient:
             Number of results to limit the output to. If None given, then returns all (may result in error).
         skip : int | None
             Number of results to skip. If None given, then skips none.
-        anno_key : int | None
+        anno_key : str | None
             Annotation key.
-        anno_val : int | None
+        anno_val : str | None
             Annotation value.
         """
         args = "/".join([belish_query, str(limit), str(skip), anno_key, anno_val])
-        bq_decoded = requote_uri(args)
+        bq_decoded = requote_uri(args).replace("?", "%3F")
         req = self.url_template.format(bq=bq_decoded)
         resp = requests.get(req, auth=(self.user, self.__password))
 

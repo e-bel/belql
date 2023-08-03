@@ -1,6 +1,8 @@
 
 function query_bel(){
-    $('#loading-bel').show();
+    let loadGif = document.getElementById('loading-bel');
+    loadGif.style.visibility = "visible";
+    // $('#loading-bel').show();
 
     $.ajax({
         url: "/",
@@ -16,9 +18,10 @@ function query_bel(){
 
         success: function(response) {
                 //create_bel_table(response.tab_options);
+                loadGif.style.visibility = "hidden";
                 create_table('result', 'bel-table');
                 fill_table('bel-table', response);
-                $('#loading-bel').hide();
+                // $('#loading-bel').hide();
             },
 
         error: function(xhr,errmsg,err){
@@ -96,8 +99,10 @@ function fill_table(table_id, table_data, data_tables=true){
 
     // Activate Datatables
     if(data_tables && data_present){
-        $('#'+table_id).DataTable();
-    };
+        $('#'+table_id).DataTable({
+            "pagingType": "full_numbers"
+        });
+    }
 
 }
 

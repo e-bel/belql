@@ -1,6 +1,6 @@
 import logging
 
-from flask import Flask, request, render_template, make_response, jsonify
+from flask import Flask, request, render_template, make_response
 
 from belql.utils import get_bel_edge_classes, get_bel_data, get_annotation_keys, get_annotation_values
 
@@ -38,4 +38,4 @@ def get_anno_vals():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001, host="0.0.0.0")
+    app.run(port=5000, host="0.0.0.0")
