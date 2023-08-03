@@ -24,7 +24,7 @@ def home():
             return make_response(context)
 
     return render_template(
-        'template.html',
+        'index.html',
         additional_variables=get_bel_edge_classes(),
         anno_keys=get_annotation_keys(),
     )
