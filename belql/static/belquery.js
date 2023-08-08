@@ -100,7 +100,14 @@ function fill_table(table_id, table_data, data_tables=true){
     // Activate Datatables
     if(data_tables && data_present){
         $('#'+table_id).DataTable({
-            "pagingType": "full_numbers"
+            dom: 'lfBrtip',
+            searching: false,
+            buttons: [
+                {
+                    extend: 'csv',
+                    filename: 'belql'
+                },
+            ]
         });
     }
 
