@@ -6,12 +6,11 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from belql.utils import get_bel_edge_classes, get_bel_data, get_annotation_keys, get_annotation_values
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="", static_folder="static")
 app.config['MAX_CONTENT_PATH'] = 16 * 1024 * 1024
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-app.static_folder = "static"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
