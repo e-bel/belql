@@ -255,8 +255,3 @@ def _tree_strings(tree_dict=None, tree_list=None, sub=0):
             })
 
     return tree_string_list
-
-
-if __name__ == "__main__":
-    a = get_annotation_keys()
-    b = 2
