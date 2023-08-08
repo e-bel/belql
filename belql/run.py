@@ -1,6 +1,7 @@
 import logging
 
 from flask import Flask, request, render_template, make_response
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from belql.utils import get_bel_edge_classes, get_bel_data, get_annotation_keys, get_annotation_values
 
@@ -8,6 +9,11 @@ from belql.utils import get_bel_edge_classes, get_bel_data, get_annotation_keys,
 app = Flask(__name__)
 app.config['MAX_CONTENT_PATH'] = 16 * 1024 * 1024
 app.static_folder = "static"
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
+
+SECRET_KEY = 'a660ccbd5bf3d753cb50e20f707796995cb6e8e1372bdbdcddb3a29a9c9d2f6f'
 
 logging.basicConfig(level=logging.DEBUG)
 

@@ -4,3 +4,4 @@ ebel-rest
 flask
 click
 tabulate
+waitress
