@@ -1,10 +1,11 @@
 """Command line interface to BELQL"""
 
 import sys
+import json
 import logging
 
 import click
-from tabulate import tabulate
+import pandas as pd
 
 from belql.run import app
 from belql.utils import get_bel_data
@@ -32,9 +33,17 @@ def serve(port, host: str):
 @click.argument('subj')
 @click.argument('relation')
 @click.argument('obj')
+@click.argument('output')
 @click.option('-d', '--database', default="pharmacome", help="KG to query. Defaults to 'pharmacome'")
-def query(subj: str, relation: str, obj: str, database: str):
-    """Query the KG with a BELQL like triple."""
+@click.option("-k", "--key", default="?", help="Annotation key to filter by")
+@click.option("-v", "--value", default="?", help="Annotation value to filter by")
+def query(subj: str, relation: str, obj: str, output: str, database: str, key: str, value: str):
+    """Query the KG with a BELQL like triple and save to TSV.
+
+    belql query 'p(HGNC:"MAPT")' causal ? output.tsv
+    """
     stmt = f'{subj.strip()} {relation.strip()} {obj.strip()}'
-    context = get_bel_data(stmt, database=database)
-    click.echo(tabulate(context, headers='keys', tablefmt='psql'))
+    context = get_bel_data(stmt, database=database, anno_key=key, anno_val=value)
+    datadict = json.loads(context)
+    df = pd.DataFrame(datadict["data_rows"], columns=datadict["column_names"])
+    df.to_csv(output, sep="\t", index=False)

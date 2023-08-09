@@ -75,7 +75,6 @@ class ApiClient:
 
         if resp.ok:
             results = resp.json(strict=False)["result"]
-            print(len(results))
             self._data = results
             return results
 

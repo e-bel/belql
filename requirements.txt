@@ -3,5 +3,4 @@ pandas
 ebel-rest
 flask
 click
-tabulate
 waitress
