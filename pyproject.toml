@@ -5,20 +5,20 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "belql"
-version = "0.1.0"
+version = "0.3.0"
 description = "BEL query language Python package."
 readme = "README.md"
-authors = ["Fraunhofer SCAI <bschultz013@gmail.com>"]
+authors = ["Bruce Schultz <bschultz013@gmail.com>"]
 license = "Apache Software License 2.0"
-repository = "https://github.com/brucetony/belql"
-homepage = "https://github.com/brucetony/belql"
+repository = "https://github.com/e-bel/belql"
+homepage = "https://github.com/e-bel/belql"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
-keywords = []  #! Update me
+keywords = ['Knowledge Graphs', "Systems Biology", "BEL"]  #! Update me
 
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [  #! Update me
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -35,7 +35,7 @@ classifiers = [  #! Update me
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.31.0"
-ebel-rest = "^1.0.25"
+ebel-rest = "^1.0.24"
 Flask = "^2.3.2"
 click = "^8.1.6"
 waitress = "^2.1.2"
@@ -96,7 +96,7 @@ color_output = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = 3.9
+python_version = 3.10
 pretty = true
 show_traceback = true
 color_output = true

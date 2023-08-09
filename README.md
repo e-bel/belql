@@ -1,8 +1,9 @@
 # BELQL
 
 ## Install the Package
+BELQL can be installed from PyPI:
 ```bash
-pip install git+https://github.com/e-bel/belql.git
+pip install belql
 ```
 
 ## Usage
