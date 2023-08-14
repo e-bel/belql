@@ -15,7 +15,7 @@ app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
 
-SECRET_KEY = 'a660ccbd5bf3d753cb50e20f707796995cb6e8e1372bdbdcddb3a29a9c9d2f6f'
+SECRET_KEY = '17b1ab81df12e33a4d220083eb172315f7f569fd67b7b48d88dea5993da43ef0'
 
 logging.basicConfig(level=logging.DEBUG)
 
